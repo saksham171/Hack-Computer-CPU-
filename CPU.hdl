@@ -1,0 +1,55 @@
+CHIP CPU{
+    IN  inM[16], instruction[16], reset;
+    OUT outM[16], writeM, addressM[15], pc[15];          
+
+    PARTS:
+        //select bit for 1st MUX
+        Not(in=instruction[15], out=selMUX1);
+        //16 bit 2to1 MUX to decide whether instruction or output will fo in ARegister
+        MUX2116(a=outALU, b=instruction, S=selMUX1, out=inAReg);
+
+        //Finding writeA
+        And(a=instruction[15], b=instruction[5], out=ARegtemp);
+        Or(a=ARegtemp, b=selMUX1, out=writeA);
+        //ARegister
+        ARegister(in=inAReg, load=writeA, out=A, out[0..14]=addressM);
+
+        //select bit for 2nd MUX
+        And(a=instruction[15], b=instruction[12], out=selMUX2);
+        //16 bit 2to1 MUX to decide whether to take M or A in ALU
+        MUX2116(a=A, b=inM, S=selMUX2, out=AM);
+
+        //Finding writeD
+        And(a=instruction[15], b=instruction[4], out=writeD);
+        //DRegister
+        DRegister(in=outALU, load=writeD, out=D);
+
+        //Making ALU chip with proper zx,zy,nx,ny,f,no from instruction and storing output in outALU(to use as input again) and outM
+        ALU(x=D, y=AM, out=outALU, out=outM, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], zr=zr, ng=ng);
+
+        //Finding writM
+        And(a=instruction[15], b=instruction[3], out=writeM);
+
+        //making pos bit which will be 1 if output is 1
+        Not(in=zr, out=notzr);
+        Not(in=ng, out=notng);
+        And(a=notzr, b=notng, out=pos);
+
+        //Finding all jump bit with just 4 cases:
+        //if =0 and j2 is 1
+        And(a=instruction[1], b=zr, out=jeq);
+        //if <0 and j3 is 1
+        And(a=instruction[2], b=ng, out=jlt);
+        //if >0 and j1 is 1
+        And(a=instruction[0], b=pos, out=jgt);
+        //if unconditional jump(j1,j2,j3=1)
+        And5(a=instruction[0], b=instruction[1], c=instruction[2], d=true, e=true, out=jmp);
+
+        //Finding or of all to see if we should jump or not
+        Or5(a=jgt, b=jeq, c=jlt, d=jmp, e=false, out=jtemp);
+        //jump only if it is C instruction
+        And(a=jtemp, b=instruction[15], out=J);
+
+        //Program counter chip
+        PC(in=A, inc=true, load=J, reset=reset, out[0..14]=pc);
+}

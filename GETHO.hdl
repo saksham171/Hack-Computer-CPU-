@@ -1,0 +1,10 @@
+CHIP GETHO {
+	IN p[16], g[16];
+	OUT pI[4], gI[4];
+
+	PARTS:
+		GETI(p=p[0..3], g=g[0..3], pI=pI[0], gI=gI[0]);
+		GETI(p=p[4..7], g=g[4..7], pI=pI[1], gI=gI[1]);
+		GETI(p=p[8..11], g=g[8..11], pI=pI[2], gI=gI[2]);
+		GETI(p=p[12..15], g=g[12..15], pI=pI[3], gI=gI[3]);
+}

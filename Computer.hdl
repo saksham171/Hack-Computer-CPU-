@@ -1,0 +1,14 @@
+CHIP Computer{
+    IN reset;
+
+    PARTS:
+        //inputting pc in ROM to get next instruction
+        ROM32K(address=pc, out=instruction);
+
+        //CPU chip which takes memory output and instruction with reset
+        CPU(inM=memout, instruction=instruction, reset=reset, outM=outM, writeM=writeM, addressM=addressM, pc=pc);
+
+        //getting new memory from Memory chip
+        Memory(in=outM, load=writeM, address=addressM, out=memout);
+
+}

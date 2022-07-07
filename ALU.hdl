@@ -1,0 +1,30 @@
+CHIP ALU{
+    IN x[16], y[16], zx, nx, zy, ny, f, no;
+    OUT out[16], zr, ng;
+
+    PARTS:
+        //choosing 0 or x/y using zx/zy with 16 bit 2to1 MUX
+        MUX2116(a=x,b=false, S=zx, out=x1);
+        MUX2116(a=y,b=false, S=zy, out=y1);
+
+        //choosing x1/y1 or !x1/!y1 using nx/ny
+        XOR16(x=x1,y=nx,out=p);
+        XOR16(x=y1,y=ny,out=q);
+
+        //Adding p and 1, anding p and q
+        ADD16(x=p, y=q, s=pplusq);
+        AND16(x=p, y=q, out=pandq);
+
+        //choosing pplusq or pandq using f with 16 bit 2to1 MUX
+        MUX2116(a=pandq, b=pplusq, S=f, out=r);
+
+        //making output !output depending on no and saving in temp so that we can use it to find zr,ng
+        XOR16(x=r, y=no, out=temp);
+
+        //finding zr and ng bits
+        ZR(in=temp,zr=zr);
+        NG(in=temp,ng=ng);
+
+        //making output=temp
+        AND16(x=temp,y=temp,out=out);
+}

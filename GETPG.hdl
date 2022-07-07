@@ -1,0 +1,39 @@
+CHIP GETPG {
+	IN x[16], y[16];
+	OUT p[16], g[16];
+
+	PARTS:
+		Xor(a=x[0], b=y[0], out=p[0]);
+		Xor(a=x[1], b=y[1], out=p[1]);
+		Xor(a=x[2], b=y[2], out=p[2]);
+		Xor(a=x[3], b=y[3], out=p[3]);
+		Xor(a=x[4], b=y[4], out=p[4]);
+		Xor(a=x[5], b=y[5], out=p[5]);
+		Xor(a=x[6], b=y[6], out=p[6]);
+		Xor(a=x[7], b=y[7], out=p[7]);
+		Xor(a=x[8], b=y[8], out=p[8]);
+		Xor(a=x[9], b=y[9], out=p[9]);
+		Xor(a=x[10], b=y[10], out=p[10]);
+		Xor(a=x[11], b=y[11], out=p[11]);
+		Xor(a=x[12], b=y[12], out=p[12]);
+		Xor(a=x[13], b=y[13], out=p[13]);
+		Xor(a=x[14], b=y[14], out=p[14]);
+		Xor(a=x[15], b=y[15], out=p[15]);
+
+		And(a=x[0], b=y[0], out=g[0]);
+		And(a=x[1], b=y[1], out=g[1]);
+		And(a=x[2], b=y[2], out=g[2]);
+		And(a=x[3], b=y[3], out=g[3]);
+		And(a=x[4], b=y[4], out=g[4]);
+		And(a=x[5], b=y[5], out=g[5]);
+		And(a=x[6], b=y[6], out=g[6]);
+		And(a=x[7], b=y[7], out=g[7]);
+		And(a=x[8], b=y[8], out=g[8]);
+		And(a=x[9], b=y[9], out=g[9]);
+		And(a=x[10], b=y[10], out=g[10]);
+		And(a=x[11], b=y[11], out=g[11]);
+		And(a=x[12], b=y[12], out=g[12]);
+		And(a=x[13], b=y[13], out=g[13]);
+		And(a=x[14], b=y[14], out=g[14]);
+		And(a=x[15], b=y[15], out=g[15]);
+}

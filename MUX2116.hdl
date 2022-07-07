@@ -1,0 +1,73 @@
+CHIP MUX2116{
+    IN a[16],b[16],S;
+    OUT out[16];
+
+    PARTS:
+    Not(in=S, out=notS);//complement of select line S
+
+    //out = S'a + Sb
+    //out[i] = S'a[i] + Sb[i]  for all i from 0 to 15
+    And(a=notS, b=a[0], out=t01);
+    And(a=S, b=b[0], out=t02);
+    Or(a=t01, b=t02, out=out[0]);
+
+    And(a=notS, b=a[1], out=t11);
+    And(a=S, b=b[1], out=t12);
+    Or(a=t11, b=t12, out=out[1]);
+
+    And(a=notS, b=a[2], out=t21);
+    And(a=S, b=b[2], out=t22);
+    Or(a=t21, b=t22, out=out[2]);
+
+    And(a=notS, b=a[3], out=t31);
+    And(a=S, b=b[3], out=t32);
+    Or(a=t31, b=t32, out=out[3]);
+
+    And(a=notS, b=a[4], out=t41);
+    And(a=S, b=b[4], out=t42);
+    Or(a=t41, b=t42, out=out[4]);
+
+    And(a=notS, b=a[5], out=t51);
+    And(a=S, b=b[5], out=t52);
+    Or(a=t51, b=t52, out=out[5]);
+
+    And(a=notS, b=a[6], out=t61);
+    And(a=S, b=b[6], out=t62);
+    Or(a=t61, b=t62, out=out[6]);
+
+    And(a=notS, b=a[7], out=t71);
+    And(a=S, b=b[7], out=t72);
+    Or(a=t71, b=t72, out=out[7]);
+
+    And(a=notS, b=a[8], out=t81);
+    And(a=S, b=b[8], out=t82);
+    Or(a=t81, b=t82, out=out[8]);
+
+    And(a=notS, b=a[9], out=t91);
+    And(a=S, b=b[9], out=t92);
+    Or(a=t91, b=t92, out=out[9]);
+
+    And(a=notS, b=a[10], out=t101);
+    And(a=S, b=b[10], out=t102);
+    Or(a=t101, b=t102, out=out[10]);
+
+    And(a=notS, b=a[11], out=t111);
+    And(a=S, b=b[11], out=t112);
+    Or(a=t111, b=t112, out=out[11]);
+
+    And(a=notS, b=a[12], out=t121);
+    And(a=S, b=b[12], out=t122);
+    Or(a=t121, b=t122, out=out[12]);
+
+    And(a=notS, b=a[13], out=t131);
+    And(a=S, b=b[13], out=t132);
+    Or(a=t131, b=t132, out=out[13]);
+
+    And(a=notS, b=a[14], out=t141);
+    And(a=S, b=b[14], out=t142);
+    Or(a=t141, b=t142, out=out[14]);
+
+    And(a=notS, b=a[15], out=t151);
+    And(a=S, b=b[15], out=t152);
+    Or(a=t151, b=t152, out=out[15]);
+}

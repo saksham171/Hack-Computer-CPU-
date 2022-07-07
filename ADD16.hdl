@@ -1,0 +1,34 @@
+// main chip
+CHIP ADD16 {
+	IN x[16], y[16];
+	OUT s[16];
+
+	PARTS:
+		// split 16 element array in 4 element subarrays
+		SPLIT(in=x, out0=x0, out1=x1, out2=x2, out3=x3);
+		SPLIT(in=y, out0=y0, out1=y1, out2=y2, out3=y3);
+
+		GETPG(x=x, y=y, p=p, g=g);
+		GETHO(p=p, g=g, pI=pI, gI=gI);
+
+		GETC4(c=false, p=pI, g=gI, c4=c4);
+		GETC8(c=false, p=pI, g=gI, c8=c8);
+		GETC12(c=false, p=pI, g=gI, c12=c12);
+		GETC16(c=false, p=pI, g=gI, c16=c16);
+
+		SPLIT(in=p, out0=p0, out1=p1, out2=p2, out3=p3);
+		SPLIT(in=g, out0=g0, out1=g1, out2=g2, out3=g3);
+
+		CLA(p=p0, g=g0, cin=false, c=carry0);
+		CLA(p=p1, g=g1, cin=c4, c=carry4);
+		CLA(p=p2, g=g2, cin=c8, c=carry8);
+		CLA(p=p3, g=g3, cin=c12, c=carry12);
+
+		XOR4(a=p0, b=carry0, out=s0);
+		XOR4(a=p1, b=carry4, out=s1);
+		XOR4(a=p2, b=carry8, out=s2);
+		XOR4(a=p3, b=carry12, out=s3);
+
+		// merge 4 element subarrays to a 16 element array
+		PATCH(s0=s0, s1=s1, s2=s2, s3=s3, s=s);
+}

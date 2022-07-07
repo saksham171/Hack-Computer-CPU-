@@ -1,0 +1,23 @@
+// concatenate 4 bit arrays to form a 16 bit array
+CHIP PATCH {
+	IN s0[4], s1[4], s2[4], s3[4];
+	OUT s[16];
+
+	PARTS:
+		And(a=s0[0], b=s0[0], out=s[0]);
+		And(a=s0[1], b=s0[1], out=s[1]);
+		And(a=s0[2], b=s0[2], out=s[2]);
+		And(a=s0[3], b=s0[3], out=s[3]);
+		And(a=s1[0], b=s1[0], out=s[4]);
+		And(a=s1[1], b=s1[1], out=s[5]);
+		And(a=s1[2], b=s1[2], out=s[6]);
+		And(a=s1[3], b=s1[3], out=s[7]);
+		And(a=s2[0], b=s2[0], out=s[8]);
+		And(a=s2[1], b=s2[1], out=s[9]);
+		And(a=s2[2], b=s2[2], out=s[10]);
+		And(a=s2[3], b=s2[3], out=s[11]);
+		And(a=s3[0], b=s3[0], out=s[12]);
+		And(a=s3[1], b=s3[1], out=s[13]);
+		And(a=s3[2], b=s3[2], out=s[14]);
+		And(a=s3[3], b=s3[3], out=s[15]);
+}

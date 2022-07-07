@@ -1,0 +1,10 @@
+CHIP And5{
+    IN a,b,c,d,e;
+    OUT out;
+
+    PARTS:
+    And(a=a,b=b,out=t1);
+    And(a=c,b=d,out=t2);
+    And(a=t1,b=t2,out=t3);
+    And(a=t3,b=e,out=out);
+}

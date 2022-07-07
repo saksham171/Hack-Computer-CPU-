@@ -1,0 +1,8 @@
+CHIP GETC4 {
+	IN c, p[4], g[4];
+	OUT c4;
+
+	PARTS:
+		And(a=p[0], b=c, out=p0c);
+		Or(a=p0c, b=g[0], out=c4);
+}

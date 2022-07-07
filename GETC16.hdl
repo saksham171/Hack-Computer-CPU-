@@ -1,0 +1,12 @@
+CHIP GETC16 {
+	IN c, p[4], g[4];
+	OUT c16;
+
+	PARTS:
+		And5(a=p[0], b=p[1], c=p[2], d=p[3], e=c, out=out1);
+		And5(a=g[0], b=p[1], c=p[2], d=p[3], e=true, out=out2);
+		And5(a=p[3], b=p[2], c=g[1], d=true, e=true, out=out3);
+		And(a=p[3], b=g[2], out=out4);
+
+		Or5(a=g[3], b=out1, c=out2, d=out3, e=out4, out=c16);
+}

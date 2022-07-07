@@ -1,0 +1,23 @@
+CHIP CLA{
+    IN p[4],g[4],cin;
+    OUT c[4];
+
+    PARTS:
+	// c0
+	And(a=cin, b=cin, out=c[0]);
+
+    // c1
+    And5(a=p[0],b=cin,c=true,d=true,e=true,out=c1a);
+    Or5(a=c1a,b=g[0],c=false,d=false,e=false,out=c[1]);
+
+    // c2
+    And5(a=p[1],b=p[0],c=cin,d=true,e=true,out=c2a);
+    And5(a=p[1],b=g[0],c=true,d=true,e=true,out=c2b);
+    Or5(a=c2a,b=c2b,c=g[1],d=false,e=false,out=c[2]);
+
+    // c3
+    And5(a=p[2],b=p[1],c=p[0],d=cin,e=true,out=c3a);
+    And5(a=p[2],b=p[1],c=g[0],d=true,e=true,out=c3b);
+    And5(a=p[2],b=g[1],c=true,d=true,e=true,out=c3c);
+    Or5(a=c3a,b=c3b,c=c3c,d=g[2],e=false,out=c[3]);
+}

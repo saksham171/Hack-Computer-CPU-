@@ -1,0 +1,20 @@
+CHIP GETI {
+	IN p[4], g[4];
+	OUT pI, gI;
+
+	PARTS:
+		// find pI
+		And5(a=p[0], b=p[1], c=p[2], d=p[3], e=true, out=pI);
+
+		// find gI
+		And(a=p[2], b=p[3], out=p23);
+		And(a=p23, b=p[1], out=p123);
+		And(a=p123, b=g[0], out=g0p123);
+
+		And(a=p23, b=g[1], out=g1p23);
+		And(a=p[3], b=g[2], out=g2p3);
+
+		Or(a=g0p123, b=g1p23, out=or0);
+		Or(a=g2p3, b=g[3], out=or1);
+		Or(a=or0, b=or1, out=gI);
+}

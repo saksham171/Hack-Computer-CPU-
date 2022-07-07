@@ -1,0 +1,23 @@
+// split 16 bit array to get 4 bit subarrays
+CHIP SPLIT {
+	IN in[16];
+	OUT out0[4], out1[4], out2[4], out3[4];
+
+	PARTS:
+		And(a=in[0], b=in[0], out=out0[0]);
+		And(a=in[1], b=in[1], out=out0[1]);
+		And(a=in[2], b=in[2], out=out0[2]);
+		And(a=in[3], b=in[3], out=out0[3]);
+		And(a=in[4], b=in[4], out=out1[0]);
+		And(a=in[5], b=in[5], out=out1[1]);
+		And(a=in[6], b=in[6], out=out1[2]);
+		And(a=in[7], b=in[7], out=out1[3]);
+		And(a=in[8], b=in[8], out=out2[0]);
+		And(a=in[9], b=in[9], out=out2[1]);
+		And(a=in[10], b=in[10], out=out2[2]);
+		And(a=in[11], b=in[11], out=out2[3]);
+		And(a=in[12], b=in[12], out=out3[0]);
+		And(a=in[13], b=in[13], out=out3[1]);
+		And(a=in[14], b=in[14], out=out3[2]);
+		And(a=in[15], b=in[15], out=out3[3]);
+}

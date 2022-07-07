@@ -1,0 +1,9 @@
+CHIP GETC8 {
+	IN c, p[4], g[4];
+	OUT c8;
+
+	PARTS:
+		And5(a=p[1], b=p[0], c=c, d=true, e=true, out=out1);
+		And5(a=p[1], b=g[0], c=true, d=true, e=true, out=out2);
+		Or5(a=out1, b=out2, c=g[1], d=false, e=false, out=c8);
+}
